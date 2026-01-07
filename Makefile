@@ -97,6 +97,14 @@ run-all:
 	@echo "   API: http://localhost:5001"
 	@echo "   Web: http://localhost:3000"
 
+# Stop full solution (local dev)
+stop-all:
+	@echo "🛑 Stopping Dify full solution (dev mode)..."
+	@pkill -f "flask run" 2>/dev/null || true
+	@pkill -f "next dev" 2>/dev/null || true
+	@$(MAKE) podman-down
+	@echo "✅ Dify solution stopped"
+
 # Dify Full Solution with Official Images (Production-like)
 dify-up:
 	@echo "🚀 Starting Dify full solution with official images..."
@@ -243,5 +251,5 @@ help:
 	dev-setup prepare-docker prepare-web prepare-api dev-clean help \
 	format check lint type-check test \
 	podman-up podman-down podman-restart podman-logs podman-ps \
-	run-api run-worker run-web run-all \
+	run-api run-worker run-web run-all stop-all \
 	dify-up dify-down dify-restart dify-logs dify-ps dify-pull
